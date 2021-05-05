@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 torch = "==1.8.1"
 matplotlib = "*"
+torchvision = "==0.9.1"
 
 [dev-packages]
 
