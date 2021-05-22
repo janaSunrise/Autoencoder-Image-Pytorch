@@ -31,3 +31,8 @@ logs/
 .DS_STORE
 
 generated/
+
+# Pytorch files
+*.bin
+
+data/

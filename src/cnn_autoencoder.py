@@ -27,7 +27,7 @@ print(torch.min(images), torch.max(images))
 
 class Autoencoder(nn.Module):
     def __init__(self):
-        super().__init__()        
+        super().__init__()
 
         self.encoder = nn.Sequential(
             nn.Conv2d(1, 16, 3, stride=2, padding=1),
@@ -38,7 +38,7 @@ class Autoencoder(nn.Module):
 
             nn.Conv2d(32, 64, 7)
         )
-        
+
         self.decoder = nn.Sequential(
             nn.ConvTranspose2d(64, 32, 7),
             nn.ReLU(),
@@ -54,47 +54,9 @@ class Autoencoder(nn.Module):
         encoded = self.encoder(x)
         decoded = self.decoder(encoded)
         return decoded
-    
- 
+
+
 # Note: For `nn.MaxPool2d` use `nn.MaxUnpool2d`, or use different kernelsize, stride and such.
-# For `Input [-1, +1]` use `nn.Tanh`
-
-class LinearAutoencoder(nn.Module):
-    def __init__(self):
-        super().__init__()
-
-        self.encoder = nn.Sequential(
-            nn.Linear(28 * 28, 128),
-            nn.ReLU(),
-
-            nn.Linear(128, 64),
-            nn.ReLU(),
-
-            nn.Linear(64, 12),
-            nn.ReLU(),
-
-            nn.Linear(12, 3)
-        )
-        
-        self.decoder = nn.Sequential(
-            nn.Linear(3, 12),
-            nn.ReLU(),
-
-            nn.Linear(12, 64),
-            nn.ReLU(),
-
-            nn.Linear(64, 128),
-            nn.ReLU(),
-
-            nn.Linear(128, 28 * 28),
-            nn.Sigmoid()
-        )
-
-    def forward(self, x):
-        encoded = self.encoder(x)
-        decoded = self.decoder(encoded)
-        return decoded
-    
 # For `Input [-1, +1]` use `nn.Tanh`
 
 # Training the model!
@@ -112,16 +74,14 @@ outputs = []
 
 for epoch in range(num_epochs):
     for img, _ in data_loader:
-        # img = img.reshape(-1, 28*28) # For the linear Autoencoder
-
         recon = model(img)
         loss = criterion(recon, img)
-        
+
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
-    print(f'Epoch:{epoch+1}, Loss:{loss.item():.4f}')
+    print(f'Epoch:{epoch+1} | Loss:{loss.item():.4f}')
     outputs.append((epoch, img, recon))
 
 for k in range(0, num_epochs, 4):
@@ -134,17 +94,15 @@ for k in range(0, num_epochs, 4):
     for i, item in enumerate(imgs):
         if i >= 9:
           break
-  
+
         plt.subplot(2, 9, i + 1)
-        # item = item.reshape(-1, 28,28) # For the linear Autoencoder
         plt.imshow(item[0])
-            
+
     for i, item in enumerate(recon):
         if i >= 9:
           break
 
         plt.subplot(2, 9, 9 + i + 1)
-        # item = item.reshape(-1, 28,28) # -> use for Autoencoder_Linear
         plt.imshow(item[0])
 
 # Save the model
