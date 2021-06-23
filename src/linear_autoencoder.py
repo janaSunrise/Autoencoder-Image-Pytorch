@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
+import torch.optim as optim
 from torchvision import datasets, transforms
 
 transform = transforms.Compose(
@@ -60,7 +61,7 @@ class LinearAutoencoder(nn.Module):
 model = LinearAutoencoder()
 
 criterion = nn.MSELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-3, weight_decay=1e-5)
+optimizer = optim.Adam(model.parameters(), lr=1e-3, weight_decay=1e-5)
 
 num_epochs = 30
 outputs = []
