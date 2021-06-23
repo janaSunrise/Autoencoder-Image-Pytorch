@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
@@ -105,4 +103,4 @@ for k in range(0, num_epochs, 4):
         plt.imshow(item[0])
 
 # Save the model
-torch.save(model.state_dict(), "autoencoder.bin")
+torch.save(model.state_dict(), "linear_autoencoder.bin")
