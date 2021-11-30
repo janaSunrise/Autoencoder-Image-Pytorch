@@ -19,8 +19,8 @@ And you're done, and you can run any of the files, and test them.
 
 This project has 3 main sections.
 
-- `src/` Contains the python scripts for training the ML Models.
-- `notebooks/` contains the jupyter notebooks with explanations and the outputs of our end
+- `src` Contains the python scripts for training the ML Models.
+- `notebooks` contains the jupyter notebooks with explanations and the outputs of our end
   goal.
 
 ## Contributing
